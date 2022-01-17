@@ -8,54 +8,53 @@ import TrNotesTable from '../components/trNotes';
 //Main Table item component
 const Table = (props) => {
     //Get notesList from notedReducer
-    const notesArchivedFlag = useSelector(state => state.notes.showArchivedNotes)//bool
-
+    const showArchiveFlag = useSelector(state => state.notes.showArchivedNotes)//bool
+   
     const editNoteId = useSelector(state => state.notes.editNoteId)//
     const notesAll = useSelector(state => state.notes.notes)
     
-    const notesToShowing = notesAll.filter(note => note.archived === notesArchivedFlag)
-
+    const notesToShowing = notesAll.filter(note => note.archived === showArchiveFlag)
+  
     //Use for all the dispatch actions
     const dispatch = useDispatch();
 
     //show archived or active notes
     const notesArchiveActiveToggle = () => {
-        dispatch({type: 'NOTES_VISIBLE_VISABILITY', payload: !notesArchivedFlag})
+        dispatch({type: 'NOTES_ARCHIVE_TOGGLE', payload: ''})
     }
 
     //Remove all visible notes from state
     const removeAllShowingNotes = () => {
-        //filter to get the todoId which need to be remove
-        const newNotes = notesAll.filter(note => note.archived !== notesArchivedFlag);
-        dispatch({type: 'NOTES_VISIBLE_REMOVE', payload: newNotes})
+        dispatch({type: 'NOTES_ALL_VISIBLE_REMOVE', payload: ''})
+    }
+
+    //sending note to or from archive by id
+    const archiveActiveNoteToggle = (noteId) => {
+        dispatch({type: 'NOTE_ARCHIVE_TOGGLE', payload: {noteId}})
+    }
+    
+    //remove note from state by id
+    const removeNote = (noteId) => {
+        // const newNotes = notesAll.filter(note => note.id !== noteId)
+        dispatch({type: 'NOTE_REMOVE', payload: {noteId}})
     }
 
     //Edit selected note by id
     const editNote = (noteId) => {
         // const newNotes = notesAll.filter(note => note.id != noteId)
-        // dispatch({type: 'NOTES_NOTe_REMOVE', payload: newNotes})
+        dispatch({type: 'NOTE_EDIT', payload: ''})
     }
-
-    //sending note to or from archive by id
-    const archiveActiveNoteToggle = (noteId) => {
-        dispatch({type: 'NOTES_NOTE_ARCHIVE_TOGGLE', payload: {notesAll, noteId}})
-    }
-    
-    //remove note from state by id
-    const removeNote = (noteId) => {
-        const newNotes = notesAll.filter(note => note.id !== noteId)
-        dispatch({type: 'NOTES_NOTE_REMOVE', payload: newNotes})
-    }
+       
       
     //cancel editing of note and rollback to pre-edited state
     const cancelEdit = () => {
-        dispatch({type: 'NOTE_CANCEL_EDIT', payload: '-1'})
+        dispatch({type: 'NOTE_EDIT_CANCEL', payload: '-1'})
     }
-    
+
     //save edited note to state
     const saveEdited = (noteId) => {
         const editedNote = ''
-        dispatch({type: 'NOTE_SAVE_EDIT', payload: editedNote})
+        dispatch({type: 'NOTE_EDIT_SAVE', payload: editedNote})
     }
     
 
@@ -66,11 +65,11 @@ const Table = (props) => {
     return (
 
         <section className="notesTable">
-            <ThNotesTable {...thEvents}/>
+            <ThNotesTable events={thEvents} showArchiveFlag={showArchiveFlag}/>
                 <div className="tableBody">
                  {notesToShowing.length > 0 ? notesToShowing.map(note => {
-                     return (note.id !== editNoteId ? <TrNotesTable key={note.id.toString()} note={note} events={noteEvents} />
-                                                    : <TrEditNotesTable key={note.id.toString()} note={note} events={noteEditEvents}/>)
+                     return (note.id !== editNoteId ? <TrNotesTable key={note.name+note.id} note={note} events={noteEvents} showArchiveFlag={showArchiveFlag}/>
+                                                    : <TrEditNotesTable key={note.name+note.id} note={note} events={noteEditEvents}/>)
                     })
                                             : <NoRecords/>
                  }

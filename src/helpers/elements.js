@@ -8,5 +8,5 @@ const categoriesSelector = (noteCategories = [], defaultValue = '') =>
 
 const icon = (selector) => `<i class="${selector}" aria-hidden="true"></i>`
 
-export { categoryIconEl, categoriesSelector, icon }
+export { categoryIconEl, icon }
 

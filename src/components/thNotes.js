@@ -2,9 +2,18 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const ThNotesTable = ({notesArchiveActiveToggle, removeAllShowingNotes}) => {
+const ThNotesTable = ({events: {notesArchiveActiveToggle, removeAllShowingNotes}, showArchiveFlag}) => {
+
+    const headClasses = `tableHead ${showArchiveFlag ? 'archiveRecordsShow' : ''}`
+
+    const tooltipArchiveToggle = showArchiveFlag ? 'Show active notes' 
+                                                   : 'Show archived notes'
+
+    const tooltipRemoveAllNotes = showArchiveFlag ? 'Remove all archived' 
+                                                    : 'Remove all active'                                                   
+
     return (
-        <ul className="tableHead">
+        <ul className={headClasses}>
             <li name="notesTHeadName">Name</li>
                 <li name="notesTHeadCreated">Created</li>
                 <li name="notesTHeadCategory">Category</li>
@@ -12,13 +21,13 @@ const ThNotesTable = ({notesArchiveActiveToggle, removeAllShowingNotes}) => {
                 <li name="notesTHeadDates">Dates</li>
         <li name="notesTHeadControls">
             <ul name="headerNoteControls">
-                <li name="archiveToggle" onClick={() => notesArchiveActiveToggle}>
-                    <i data-tooltip="Show archived notes" aria-hidden="true">
+                <li name="archiveToggle" onClick={notesArchiveActiveToggle}>
+                    <i data-tooltip={tooltipArchiveToggle} aria-hidden="true">
                         <FontAwesomeIcon icon={faArchive} size="lg" />
                     </i>
                 </li>
-                <li name="removeAllNotes" onClick={() => removeAllShowingNotes}>
-                    <i data-tooltip="Remove all active" aria-hidden="true">
+                <li name="removeAllNotes" onClick={removeAllShowingNotes}>
+                    <i data-tooltip={tooltipRemoveAllNotes} aria-hidden="true">
                         <FontAwesomeIcon icon={faTrash} size="lg" />
                     </i>
                 </li>

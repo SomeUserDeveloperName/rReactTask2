@@ -5,13 +5,15 @@ import { faTasks, faRandom, faLightbulb, faQuoteRight } from '@fortawesome/free-
 import { convertDate } from '../helpers/dateHelper';
 import categoryToIcon from '../helpers/categoriesToIconsHelper';
 
-const TrNotesTable = ({events, note}) => {
+const TrNotesTable = ({events, note, showArchiveFlag}) => {
     const iconsObj = {faTasks, faRandom, faLightbulb, faQuoteRight}
     const {editNote, archiveActiveNoteToggle, removeNote} = events
 
     const createdDate = convertDate(note.dateCreated)
     const noteDates = note.dateEdited ? `${note.dateCreated}, ${note.dateEdited}`
                                       : note.dateCreated
+
+    const tooptipArchiveToggle = showArchiveFlag ? 'Up from Archive' : 'Drop to Archive'
     return (
             <ul className="noteRow"> 
                 <li name="noteIcon">
@@ -25,7 +27,7 @@ const TrNotesTable = ({events, note}) => {
                 <li name="noteControls">
                 <ul className="controlButtonsWrap" >
                     <li name="editNoteControl" onClick={() => editNote(note.id)}><i data-tooltip="Edit note" aria-hidden="true"><FontAwesomeIcon icon={faPencilAlt} size="lg" /></i></li>
-                    <li name="archiveNoteControl" onClick={() => archiveActiveNoteToggle(note.id)}><i data-tooltip="To Archive" aria-hidden="true"><FontAwesomeIcon icon={faArchive} size="lg" /></i></li>
+                    <li name="archiveNoteControl" onClick={() => archiveActiveNoteToggle(note.id)}><i data-tooltip={tooptipArchiveToggle} aria-hidden="true"><FontAwesomeIcon icon={faArchive} size="lg" /></i></li>
                     <li name="removeNoteControl" onClick={() => removeNote(note.id)}><i data-tooltip="Remove note" aria-hidden="true"><FontAwesomeIcon icon={faTrash} size="lg" /></i></li>
                 </ul>
                 </li>  

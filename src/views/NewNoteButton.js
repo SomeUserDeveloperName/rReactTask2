@@ -1,8 +1,8 @@
 import React from 'react';
 
-const NewNoteButton = () => {
+const NewNoteButton = ({showHideHandler}) => {
     return (
-        <section className="button_container">
+        <section className="button_container" onClick={() => showHideHandler(true)}>
             <button id="createNoteButton" type="button">Create Note</button>
         </section>
     );

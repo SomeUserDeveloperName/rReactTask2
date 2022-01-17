@@ -42,8 +42,8 @@ fieldset * {
     display: inline-flex;
 }
 
-fieldset input[type="text"], select, textarea {
-    border: 1px solid black;
+fieldset input[type=text], select, textarea {
+    outline: 1px solid black;
 }
 
 fieldset textarea {
