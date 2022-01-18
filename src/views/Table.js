@@ -4,6 +4,7 @@ import NoRecords from '../components/noRecords';
 import ThNotesTable from '../components/thNotes';
 import TrEditNotesTable from '../components/trEditNote';
 import TrNotesTable from '../components/trNotes';
+import { getCurrentDate } from '../helpers/dateHelper';
 
 //Main Table item component
 const Table = (props) => {
@@ -35,26 +36,26 @@ const Table = (props) => {
     
     //remove note from state by id
     const removeNote = (noteId) => {
-        // const newNotes = notesAll.filter(note => note.id !== noteId)
         dispatch({type: 'NOTE_REMOVE', payload: {noteId}})
     }
 
     //Edit selected note by id
     const editNote = (noteId) => {
-        // const newNotes = notesAll.filter(note => note.id != noteId)
-        dispatch({type: 'NOTE_EDIT', payload: ''})
+        dispatch({type: 'NOTE_EDIT', payload: {noteId}})
     }
        
       
     //cancel editing of note and rollback to pre-edited state
     const cancelEdit = () => {
-        dispatch({type: 'NOTE_EDIT_CANCEL', payload: '-1'})
+        dispatch({type: 'NOTE_EDIT_CANCEL', payload: 'none'})
     }
 
     //save edited note to state
-    const saveEdited = (noteId) => {
-        const editedNote = ''
-        dispatch({type: 'NOTE_EDIT_SAVE', payload: editedNote})
+    const saveEdited = ({id, name, category, content}) => {
+        const dateEdited = getCurrentDate()
+        const middleObj = {name, category, content, dateEdited}
+        const editNoteId = 'none'
+        dispatch({type: 'NOTE_EDIT_SAVE', payload: {id, middleObj, editNoteId}})
     }
     
 

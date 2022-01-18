@@ -1,12 +1,11 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
-import { faTasks, faRandom, faLightbulb, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 import { convertDate } from '../helpers/dateHelper';
 import categoryToIcon from '../helpers/categoriesToIconsHelper';
 
 const TrNotesTable = ({events, note, showArchiveFlag}) => {
-    const iconsObj = {faTasks, faRandom, faLightbulb, faQuoteRight}
+
     const {editNote, archiveActiveNoteToggle, removeNote} = events
 
     const createdDate = convertDate(note.dateCreated)
@@ -17,7 +16,7 @@ const TrNotesTable = ({events, note, showArchiveFlag}) => {
     return (
             <ul className="noteRow"> 
                 <li name="noteIcon">
-                    <FontAwesomeIcon icon={categoryToIcon(note.category, iconsObj)} size="2x" />
+                    <FontAwesomeIcon icon={categoryToIcon(note.category)} size="2x" />
                 </li>
                 <li name="noteName">{note.name}</li>
                 <li name="noteCreated">{createdDate}</li>

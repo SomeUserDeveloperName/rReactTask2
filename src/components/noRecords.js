@@ -4,7 +4,7 @@ const NoRecords = () => {
 
     return (
             <ul className="noteRow noRecords">
-                <li>You haven't any recorded notes</li>
+                <li>You haven't any recorded notes here</li>
             </ul>
             );
     }
