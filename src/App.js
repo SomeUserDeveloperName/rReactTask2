@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import NewNoteAddPopUp from './views/NewNoteAddPopUp';
 import NewNoteButton from './views/NewNoteButton';
-//import NotesTable from './views/NotesTable';
 import Table from './views/Table';
 import TableSummary from './views/TableSummary';
-
-//import NotesSummaryTable from './views/NotesSummaryTable';
 
 function App() {
    
