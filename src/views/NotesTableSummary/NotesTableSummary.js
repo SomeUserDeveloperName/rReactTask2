@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import NoRecords from '../components/noRecords';
-import ThNotesSummaryTable from '../components/thNotesSummary';
-import TrNotesSummaryTable from '../components/trNotesSummary';
+import NoRecords from '../../components/noRecords/noRecords';
+import ThNotesTableSummary from '../../components/thNoteSummary/thNoteSummary';
+import TrNotesTableSummary from '../../components/trNoteSummary/trNoteSummary';
 
 //Summary Table item component
-const TableSummary = () => {
+const NotesTableSummary = () => {
     //Make aggregated Array of objects
     const usedNotesCategories = [];
     const notesAll = useSelector(state => state.notes.notes)
@@ -21,9 +21,9 @@ const TableSummary = () => {
 
     return (
         <section className="summaryTable">
-         <ThNotesSummaryTable />
+         <ThNotesTableSummary />
             <div className="tableBody">
-                {notesMapArray.length ? notesMapArray.map(item => <TrNotesSummaryTable key={item.category} item={item}/>)
+                {notesMapArray.length ? notesMapArray.map(item => <TrNotesTableSummary key={item.category} item={item}/>)
                                       : <NoRecords />
                 }
             </div>
@@ -31,4 +31,4 @@ const TableSummary = () => {
     );
 }
 
-export default TableSummary;
+export default NotesTableSummary;

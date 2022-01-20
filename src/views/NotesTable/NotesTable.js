@@ -1,64 +1,51 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import NoRecords from '../components/noRecords';
-import ThNotesTable from '../components/thNotes';
-import TrEditNotesTable from '../components/trEditNote';
-import TrNotesTable from '../components/trNotes';
-import { getCurrentDate } from '../helpers/dateHelper';
+import React, { useContext } from 'react';
+import {useSelector} from 'react-redux';
+import { Context } from '../../components/context';
+import NoRecords from '../../components/noRecords/noRecords';
+import ThNotesTable from '../../components/thNote/thNote';
+import TrEditNotesTable from '../../components/trEditNote/trEditNote';
+import TrNotesTable from '../../components/trNote/trNote';
+import { getCurrentDate } from '../../helpers/dateHelper';
 
-//Main Table item component
-const Table = (props) => {
-    //Get notesList from notedReducer
+//Main Table component
+const NotesTable = () => {
+    //use for actions dispatching
+     const boundedActions = useContext(Context);
+
+    //Get notesList from notesReducer
     const showArchiveFlag = useSelector(state => state.notes.showArchivedNotes)//bool
-   
+    const editedNoteDefaultId = 'none'
+
     const editNoteId = useSelector(state => state.notes.editNoteId)//
     const notesAll = useSelector(state => state.notes.notes)
     
-    const notesToShowing = notesAll.filter(note => note.archived === showArchiveFlag)
-  
-    //Use for all the dispatch actions
-    const dispatch = useDispatch();
+    const notesForShowing = notesAll.filter(note => note.archived === showArchiveFlag)
 
     //show archived or active notes
-    const notesArchiveActiveToggle = () => {
-        dispatch({type: 'NOTES_ARCHIVE_TOGGLE', payload: ''})
-    }
+    const notesArchiveActiveToggle = () => boundedActions.archiveActiveToggle()
 
     //Remove all visible notes from state
-    const removeAllShowingNotes = () => {
-        dispatch({type: 'NOTES_ALL_VISIBLE_REMOVE', payload: ''})
-    }
+    const removeAllShowingNotes = () => boundedActions.removeAllVisible()
 
     //sending note to or from archive by id
-    const archiveActiveNoteToggle = (noteId) => {
-        dispatch({type: 'NOTE_ARCHIVE_TOGGLE', payload: {noteId}})
-    }
+    const archiveActiveNoteToggle = (noteId) => boundedActions.toFromArchive(noteId)
     
     //remove note from state by id
-    const removeNote = (noteId) => {
-        dispatch({type: 'NOTE_REMOVE', payload: {noteId}})
-    }
+    const removeNote = (noteId) => boundedActions.removeNote(noteId)
 
     //Edit selected note by id
-    const editNote = (noteId) => {
-        dispatch({type: 'NOTE_EDIT', payload: {noteId}})
-    }
-       
+    const editNote = (noteId) => boundedActions.edit(noteId)
       
     //cancel editing of note and rollback to pre-edited state
-    const cancelEdit = () => {
-        dispatch({type: 'NOTE_EDIT_CANCEL', payload: 'none'})
-    }
+    const cancelEdit = () => boundedActions.cancelEdit(editedNoteDefaultId)
 
     //save edited note to state
     const saveEdited = ({id, name, category, content}) => {
         const dateEdited = getCurrentDate()
         const middleObj = {name, category, content, dateEdited}
-        const editNoteId = 'none'
-        dispatch({type: 'NOTE_EDIT_SAVE', payload: {id, middleObj, editNoteId}})
+        boundedActions.saveEdited(id, middleObj, editedNoteDefaultId)
     }
     
-
     const thEvents = {notesArchiveActiveToggle, removeAllShowingNotes}
     const noteEvents = {editNote, archiveActiveNoteToggle, removeNote}
     const noteEditEvents = {cancelEdit, saveEdited}
@@ -68,7 +55,7 @@ const Table = (props) => {
         <section className="notesTable">
             <ThNotesTable events={thEvents} showArchiveFlag={showArchiveFlag}/>
                 <div className="tableBody">
-                 {notesToShowing.length > 0 ? notesToShowing.map(note => {
+                 {notesForShowing.length > 0 ? notesForShowing.map(note => {
                      return (note.id !== editNoteId ? <TrNotesTable key={note.name+note.id} note={note} events={noteEvents} showArchiveFlag={showArchiveFlag}/>
                                                     : <TrEditNotesTable key={note.name+note.id} note={note} events={noteEditEvents}/>)
                     })
@@ -79,4 +66,4 @@ const Table = (props) => {
     );
 }
 
-export default Table;
+export default NotesTable;

@@ -1,5 +1,5 @@
 const mockedNotes = {
-    // "notes": [],
+
     "notes": 
                     [{ "id": "1", 
                         "name": "alala", 
@@ -50,13 +50,13 @@ const mockedNotes = {
                     "archived": true,
                 },    
                 {   "id": "7", 
-                "name": "ewrewroewr", 
-                "dateCreated": "07/09/2011", 
-                "category": "Random Thought", 
-                "content": "ytpoytrypoweere,mmrerop", 
-                "dateEdited": "11/12/2035", 
-                "archived": false,
-            }],
+                    "name": "ewrewroewr", 
+                    "dateCreated": "07/09/2011", 
+                    "category": "Random Thought", 
+                    "content": "ytpoytrypoweere,mmrerop", 
+                    "dateEdited": "11/12/2035", 
+                    "archived": false,
+                 }],
     "showArchivedNotes": false, 
     "editNoteId": "none",           
                 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArchive, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faArchive, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 
 const ThNotesTable = ({events: {notesArchiveActiveToggle, removeAllShowingNotes}, showArchiveFlag}) => {
 
@@ -23,7 +23,7 @@ const ThNotesTable = ({events: {notesArchiveActiveToggle, removeAllShowingNotes}
             <ul name="headerNoteControls">
                 <li name="archiveToggle" onClick={notesArchiveActiveToggle}>
                     <i data-tooltip={tooltipArchiveToggle} aria-hidden="true">
-                        <FontAwesomeIcon icon={faArchive} size="lg" />
+                        <FontAwesomeIcon icon={showArchiveFlag ? faUpload : faArchive} size="lg" />
                     </i>
                 </li>
                 <li name="removeAllNotes" onClick={removeAllShowingNotes}>

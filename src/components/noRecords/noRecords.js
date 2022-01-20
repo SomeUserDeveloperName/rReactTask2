@@ -3,7 +3,7 @@ import React from 'react';
 const NoRecords = () => {
 
     return (
-            <ul className="noteRow noRecords">
+            <ul className="noRecords">
                 <li>You haven't any recorded notes here</li>
             </ul>
             );

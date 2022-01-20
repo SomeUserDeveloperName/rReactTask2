@@ -5,7 +5,7 @@ const CategoriesSelector = ({defaultValue = '', id = 'categories', onChangeHandl
     
     const notesCategories = useSelector(state => state.notesCategories)//bool
     return (
-            <select id={id} name="category" style={{'display': 'block'}} onChange={(e) => onChangeHandler(e, 'category')}>
+            <select id={id} name="category" className="categorySelector" onChange={(e) => onChangeHandler(e, 'category')}>
                 {defaultValue ? '' : <option selected value={'Choose cat'}>Choose cat</option>}
                 {notesCategories.map((cat) => {
                     return (cat === defaultValue ? <option value={cat} selected key={cat}>{cat}</option>

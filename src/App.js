@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import NewNoteAddPopUp from './views/NewNoteAddPopUp';
-import NewNoteButton from './views/NewNoteButton';
-import Table from './views/Table';
-import TableSummary from './views/TableSummary';
+import NewNoteAddPopUp from './views/NewNoteAddPopUp/NewNoteAddPopUp';
+import NewNoteButton from './views/NewNoteAddButton/NewNoteAddButton';
+import NotesTable from './views/NotesTable/NotesTable';
+import NotesTableSummary from './views/NotesTableSummary/NotesTableSummary';
 
 function App() {
    
@@ -14,14 +14,16 @@ function App() {
 
                 {/* Please check /views/NewNotePopUp.js for detail*/}
                 <NewNoteAddPopUp {...popUpProps}/>
-                {/*<NotesTable/>*/}
-                <Table/>
-                {/*<div className="divider"></div>*/}
+
+                 {/* Please check /views/Table.js for detail*/}
+                <NotesTable/>
+                
+                 {/* Please check /views/NewNoteButton.js for detail*/}
                 <NewNoteButton {...popUpProps} />
 
-                <TableSummary/>
                 {/* Please check /views/NotesSummary.js for detail*/}
-                {/*<NotesSummaryTable/>*/}
+                <NotesTableSummary/>
+  
             </main>
     );
 }

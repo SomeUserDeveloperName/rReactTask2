@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTasks, faRandom, faLightbulb, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
-import categoryToIcon from '../helpers/categoriesToIconsHelper';
+import categoryToIcon from '../../helpers/categoriesToIconsHelper';
 
 const TrNotesSummaryTable = ({item}) => {
     const iconsObj = {faTasks, faRandom, faLightbulb, faQuoteRight}

@@ -5,7 +5,7 @@ const notesReducer = (state = mockedNotes , action) => {
         case 'NOTE_ADD_NEW':
             return {
                 ...state,
-                notes: [...state.notes, action.payload.note] 
+                notes: [...state.notes, action.payload.newNote] 
             } 
 
         case 'NOTE_EDIT':
@@ -16,13 +16,13 @@ const notesReducer = (state = mockedNotes , action) => {
         case 'NOTE_EDIT_CANCEL':
             return {
                 ...state,
-                editNoteId: action.payload
+                editNoteId: action.payload.editedNoteDefaultId
             } 
         case 'NOTE_EDIT_SAVE':
             return {
                 ...state,
                 notes: state.notes.map(note => {
-                 return   note.id !== action.payload.id 
+                 return   note.id !== action.payload.noteId 
                                   ? note 
                                   : {...note, ...action.payload.middleObj}
                 }),
