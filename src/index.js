@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Context } from './components/context';
 import { Provider } from 'react-redux';
-import { createStore, bindActionCreators } from 'redux';
+import { createStore, bindActionCreators, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
 import * as ActionCreators from './actions/actions';
@@ -12,15 +13,26 @@ import App from './App';
 import './index.css';
 
 import * as serviceWorker from './serviceWorker';
+import { localStorageRead } from './helpers/localStorageHelper';
 
-const store = createStore(rootReducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const storageID = "RadencyReactTest2";
+const localStorageObj = localStorageRead(storageID);
+
+const middleWares = [thunk]
+const store = createStore(
+    rootReducer(localStorageObj), 
+    compose(
+            applyMiddleware(...middleWares),
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+)
 
 const boundedActions = boundingActions(bindActionCreators, store.dispatch, ActionCreators)
 
 ReactDOM.render(
     <Provider store={store}>
         <Context.Provider value={boundedActions}>
-            <App />
+            <App storageID={storageID}/>
         </Context.Provider>
     </Provider>,
  document.getElementById('root'));

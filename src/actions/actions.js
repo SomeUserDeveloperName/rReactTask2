@@ -1,18 +1,20 @@
-const doAddNewNote = newNote => ({ type: 'NOTE_ADD_NEW', payload: {newNote} })
+import { Types } from "../types/types"
 
-const doEditNote = noteId  => ({ type: 'NOTE_EDIT', payload: {noteId} })
+const doAddNewNote = newNote => ({ type: Types.NOTE_ADD_NEW, payload: {newNote} })
 
-const doCancelEditNote = editedNoteDefaultId => ({ type: 'NOTE_EDIT_CANCEL', payload: {editedNoteDefaultId}})
+const doEditNote = noteId  => ({ type: Types.NOTE_EDIT, payload: {noteId} })
 
-const doSaveEditNote = (noteId, middleObj, editedNoteDefaultId)=> ({ type: 'NOTE_EDIT_SAVE', payload: {noteId, middleObj, editedNoteDefaultId}})
+const doCancelEditNote = editedNoteDefaultId => ({ type: Types.NOTE_EDIT_CANCEL, payload: {editedNoteDefaultId}})
 
-const doNoteDropOrUpFromArchive = noteId => ({ type: 'NOTE_ARCHIVE_TOGGLE', payload: {noteId}})
+const doSaveEditNote = (noteId, middleObj, editedNoteDefaultId)=> ({ type: Types.NOTE_EDIT_SAVE, payload: {noteId, middleObj, editedNoteDefaultId}})
 
-const doSwitchBetweenActiveArchiveNotes = () => ({ type: 'NOTES_ARCHIVE_TOGGLE' })
+const doNoteDropOrUpFromArchive = noteId => ({ type: Types.NOTE_ARCHIVE_TOGGLE, payload: {noteId}})
 
-const doRemoveNote = noteId => ({ type: 'NOTE_REMOVE', payload: {noteId}})
+const doSwitchBetweenActiveArchiveNotes = () => ({ type: Types.NOTES_ARCHIVE_TOGGLE })
 
-const doRemoveAllVisibleNotes = () => ({ type: 'NOTES_ALL_VISIBLE_REMOVE' })
+const doRemoveNote = noteId => ({ type: Types.NOTE_REMOVE, payload: {noteId}})
+
+const doRemoveAllVisibleNotes = () => ({ type: Types.NOTES_ALL_VISIBLE_REMOVE })
 
 export {doAddNewNote, doEditNote, doCancelEditNote, doSaveEditNote, doNoteDropOrUpFromArchive,
 doSwitchBetweenActiveArchiveNotes, doRemoveNote, doRemoveAllVisibleNotes}

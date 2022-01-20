@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NewNoteAddPopUp from './views/NewNoteAddPopUp/NewNoteAddPopUp';
 import NewNoteButton from './views/NewNoteAddButton/NewNoteAddButton';
 import NotesTable from './views/NotesTable/NotesTable';
 import NotesTableSummary from './views/NotesTableSummary/NotesTableSummary';
+import { useSelector } from 'react-redux';
+import { localStorageReadRaw, localStorageWrite } from './helpers/localStorageHelper';
 
-function App() {
+function App({storageID}) {
    
     const [PopUpShowed, setPopUpFlag] = useState(false)
     const popUpProps = {showHideHandler: setPopUpFlag, PopUpShowed} 
+
+    const reduxState = useSelector(state => state)
+    
+     useEffect(() => {
+        const localStorageState = localStorageReadRaw(storageID)
+        const strRedux = JSON.stringify(reduxState)
+            if(strRedux !== localStorageState){
+                localStorageWrite(storageID, reduxState)          
+            }
+       
+    }, [storageID, reduxState]);
+    
    
     return (
             <main className="rootApp">

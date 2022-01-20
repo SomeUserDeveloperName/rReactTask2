@@ -1,24 +1,27 @@
 import mockedNotes from '../redux-states/mockedNotes'
+import { Types } from '../types/types'
 
-const notesReducer = (state = mockedNotes , action) => {
+const notesReducer = (localStorage) => {
+      
+    return (state = (localStorage.notes ? localStorage.notes : mockedNotes) , action) => {
     switch (action.type) {
-        case 'NOTE_ADD_NEW':
+        case Types.NOTE_ADD_NEW:
             return {
                 ...state,
                 notes: [...state.notes, action.payload.newNote] 
             } 
 
-        case 'NOTE_EDIT':
+        case Types.NOTE_EDIT:
             return {
                 ...state,
                 editNoteId: action.payload.noteId 
             } 
-        case 'NOTE_EDIT_CANCEL':
+        case Types.NOTE_EDIT_CANCEL:
             return {
                 ...state,
                 editNoteId: action.payload.editedNoteDefaultId
             } 
-        case 'NOTE_EDIT_SAVE':
+        case Types.NOTE_EDIT_SAVE:
             return {
                 ...state,
                 notes: state.notes.map(note => {
@@ -27,26 +30,26 @@ const notesReducer = (state = mockedNotes , action) => {
                                   : {...note, ...action.payload.middleObj}
                 }),
 
-                editNoteId: action.payload.editNoteId
+                editNoteId: action.payload.editedNoteDefaultId
             }    
 
-        case 'NOTE_ARCHIVE_TOGGLE':
+        case Types.NOTE_ARCHIVE_TOGGLE:
             return {
                 ...state,
                 notes: state.notes.map(note => ({...note, archived: note.id === action.payload.noteId ? !note.archived : note.archived}))
             }     
-        case 'NOTE_REMOVE':
+        case Types.NOTE_REMOVE:
             return {
                 ...state,
                 notes: state.notes.filter(note => note.id !== action.payload.noteId)
             }
 
-        case 'NOTES_ARCHIVE_TOGGLE':
+        case Types.NOTES_ARCHIVE_TOGGLE:
             return {
                 ...state,
                 showArchivedNotes: !state.showArchivedNotes
             }      
-        case 'NOTES_ALL_VISIBLE_REMOVE':
+        case Types.NOTES_ALL_VISIBLE_REMOVE:
             return {
                 ...state,
                 notes: state.notes.filter(note => note.archived !== state.showArchivedNotes)
@@ -54,6 +57,7 @@ const notesReducer = (state = mockedNotes , action) => {
  
         default:
             return state
+        }
     }
 }
 
