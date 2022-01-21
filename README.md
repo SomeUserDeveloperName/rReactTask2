@@ -1,4 +1,4 @@
 # React Redux Hooks Example
-Based on uphead git repo was create this app
+Based on uphead git repo was created this app
 
 
